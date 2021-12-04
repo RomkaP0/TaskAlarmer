@@ -103,7 +103,7 @@
             <LinearLayout
                 android:layout_width="52dp"
                 android:layout_height="144dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="12dp"
 
                 android:orientation="vertical">
                 <ImageButton
