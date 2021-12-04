@@ -1,0 +1,68 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+
+    <style name="Theme.MyProject" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- My settings-->
+        <item name="actionBarStyle">@style/MyActionBar</item>
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#018786</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">#BD1919</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorOnSecondary">#44F1BB</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="MyActionBar" parent="Widget.MaterialComponents.ActionBar.Primary">
+        <item name="android:background">@color/teal_200</item>
+    </style>
+    <style name="Theme.WithToolBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#018786</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorOnSecondary">#4C4C4C</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="cardStyle">
+        <item name="android:background">#575757</item>
+    </style>
+
+
+    <style name="Theme.App.Calendar" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+    </style>
+
+
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSize">16dp</item>
+    </style>
+    <style name="Widget.App.RadioButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="android:textColor">#BDBDBD</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+    <style name="EventButton">
+        <item name="android:layout_marginStart">-16dp</item>
+        <item name="android:drawableRight">@drawable/ic_navigate_next_black_24dp</item>
+        <item name="android:drawableTint">#BDBDBD</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Material.Small</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:shadowColor">@android:color/transparent</item>
+        <item name="android:textColor">#BDBDBD</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+</resources>

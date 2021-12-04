@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Органайзер</string>
+    <string name="search_page">Поиск</string>
+    <string name="setting_page">Настройки</string>
+    <string name="page_title">Органайзер</string>
+    <string name="item1">Сегодня</string>
+    <string name="item2">Добавить</string>
+    <string name="item3">Настройки</string>
+    <string name="CrTitle">Название</string>
+    <string name="allday">Весь день</string>
+    <string name="timeb">Начало</string>
+    <string name="timee">Окончание</string>
+    <string name="date">Дата</string>
+    <string name="timenotif">Уведомить</string>
+    <string name="repeate">Повторять</string>
+    <string name="parall">Запрет\nсобытий</string>
+    <string name="description">Описание</string>
+    <string name="resetFills">Сбросить подсказки</string>
+    <string name="Ltheme">Светлая</string>
+    <string name="Dtheme">Тёмная</string>
+    <string name="Stheme">Системная</string>
+    <string-array name="notif">
+        <item>В момент</item>
+        <item>5 минут</item>
+        <item>10 минут</item>
+        <item>30 минут</item>
+        <item>1 час</item>
+        <item>6 часов</item>
+        <item>12 часов</item>
+        <item>24 часа</item>
+        <item>Нет</item>
+
+
+    </string-array>
+    <string-array name="repeating_in">
+        <item>Нет</item>
+    <item>Ежедневно</item>
+    <item>Еженедельно</item>
+    <item>Ежемесячно</item>
+        <item>Ежегодно</item>
+</string-array>
+    <string name="editing">Редактирование</string>
+    <string name="deleting">Удаление</string>
+    <string name="wipe">Сбросить</string>
+    <string name="service_desc">autostart</string>
+    <string name="cardnotif">\"Уведомим:    \"</string>
+    <string name="Repeatcard">\"Повтор: \"</string>
+
+
+
+</resources>
