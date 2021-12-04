@@ -31,7 +31,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder= new NotificationCompat.Builder(context, "OrgNotCll")
-                .setSmallIcon(R.drawable.ic_event_black_24dp)
+                .setSmallIcon(R.drawable.ic_stat_name)
                 .setContentTitle(titleText)
                 .setContentText(bigText)
                 .setAutoCancel(true)
