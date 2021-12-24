@@ -43,4 +43,5 @@
     <string name="service_desc">autostart</string>
     <string name="cardnotif">\"Notify:    \"</string>
     <string name="Repeatcard">\"Repeating: \"</string>
+    <string name="Themes">Theme</string>
 </resources>
