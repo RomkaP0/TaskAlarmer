@@ -23,6 +23,11 @@
         <item>Monthly</item>
         <item>Yearly</item>
     </string-array>
+    <string-array name="cat">
+        <item>Studying</item>
+        <item>Working</item>
+        <item>Relaxing</item>
+    </string-array>
     <string name="app_name">Organizer</string>
     <string name="CrTitle">Title</string>
     <string name="allday">During the day</string>
@@ -44,4 +49,5 @@
     <string name="cardnotif">\"Notify:    \"</string>
     <string name="Repeatcard">\"Repeating: \"</string>
     <string name="Themes">Theme</string>
+    <string name="catname">Category</string>
 </resources>

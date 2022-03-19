@@ -73,7 +73,7 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="c42df29f-e719-4762-8a9f-7c0908db89f7" active="true">
+      <connection id="c42df29f-e719-4762-8a9f-7c0908db89f7" active="true" signed="true">
         <database>
           <name value="Events" />
           <description value="" />
@@ -160,7 +160,7 @@
           <object-name-filters />
         </object-filters>
       </connection>
-      <connection id="3515a892-f1ab-4020-a71a-51b93e25741f" active="true">
+      <connection id="3515a892-f1ab-4020-a71a-51b93e25741f" active="true" signed="true">
         <database>
           <name value="Connection" />
           <description value="" />

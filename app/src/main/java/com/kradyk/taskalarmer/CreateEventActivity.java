@@ -45,6 +45,7 @@ public class CreateEventActivity extends AppCompatActivity {
     public AutoCompleteTextView autoCompleteTextView;
     public AutoCompleteTextView autoCompleteTextView1;
     public AutoCompleteTextView autoCompleteTextView2;
+    public AutoCompleteTextView autoCompleteTextView3;
     int hour=0;
     int minute=0;
 
@@ -147,6 +148,10 @@ public class CreateEventActivity extends AppCompatActivity {
         autoCompleteTextView2 = findViewById(R.id.repeating);
         autoCompleteTextView2.setText(repeating[0]);
         autoCompleteTextView2.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, repeating ));
+
+        String[] cat = getResources().getStringArray(R.array.cat);
+        autoCompleteTextView3 = findViewById(R.id.category);
+        autoCompleteTextView3.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, cat));
 
         dbHelper= new DBHelper(this,"String",1);
         database = dbHelper.getWritableDatabase();
@@ -343,6 +348,17 @@ public class CreateEventActivity extends AppCompatActivity {
                                     setTimeNotifMillis();
                                     contentValues.put(DBHelper.KEY_TIMENOTIFMILLIS, timeNotifMillis);
 
+                                    if (!autoCompleteTextView3.getText().toString().equals(""))
+                                        if (autoCompleteTextView3.getText().toString().equals("Studying")||autoCompleteTextView3.getText().toString().equals("Учеба"))
+                                            contentValues.put(DBHelper.KEY_POSID,0);
+                                        else if (autoCompleteTextView3.getText().toString().equals("Working")||autoCompleteTextView3.getText().toString().equals("Работа"))
+                                            contentValues.put(DBHelper.KEY_POSID,1);
+                                        else if (autoCompleteTextView3.getText().toString().equals("Relaxing")||autoCompleteTextView3.getText().toString().equals("Отдых"))
+                                            contentValues.put(DBHelper.KEY_POSID,2);
+
+
+
+
                                     database.insert(DBHelper.TABLE_FILLS,null,contentValues);
                                     Log.d("ExcFillInsertLog", "Exception");
                                     contentValues.put(DBHelper.KEY_TIMEBMILLIS, cal.getTimeInMillis());
@@ -373,6 +389,13 @@ public class CreateEventActivity extends AppCompatActivity {
                                     contentValues.put(DBHelper.KEY_TIMENOTIF, autoCompleteTextView1.getText().toString());
                                     setTimeNotifMillis();
                                     contentValues.put(DBHelper.KEY_TIMENOTIFMILLIS, timeNotifMillis);
+                                    if (!autoCompleteTextView3.getText().toString().equals(""))
+                                        if (autoCompleteTextView3.getText().toString().equals("Studying")||autoCompleteTextView3.getText().toString().equals("Учеба"))
+                                            contentValues.put(DBHelper.KEY_POSID,0);
+                                        else if (autoCompleteTextView3.getText().toString().equals("Working")||autoCompleteTextView3.getText().toString().equals("Работа"))
+                                            contentValues.put(DBHelper.KEY_POSID,1);
+                                        else if (autoCompleteTextView3.getText().toString().equals("Relaxing")||autoCompleteTextView3.getText().toString().equals("Отдых"))
+                                            contentValues.put(DBHelper.KEY_POSID,2);
 
                                     contentValues.put(DBHelper.KEY_DATA, data);
                                     contentValues.put(DBHelper.KEY_DESCRIPTIONS, editText2.getText().toString());
@@ -402,6 +425,13 @@ public class CreateEventActivity extends AppCompatActivity {
                                 contentValues.put(DBHelper.KEY_TIMENOTIF, autoCompleteTextView1.getText().toString());
                                 setTimeNotifMillis();
                                 contentValues.put(DBHelper.KEY_TIMENOTIFMILLIS, timeNotifMillis);
+                                    if (!autoCompleteTextView3.getText().toString().equals(""))
+                                        if (autoCompleteTextView3.getText().toString().equals("Studying")||autoCompleteTextView3.getText().toString().equals("Учеба"))
+                                            contentValues.put(DBHelper.KEY_POSID,0);
+                                        else if (autoCompleteTextView3.getText().toString().equals("Working")||autoCompleteTextView3.getText().toString().equals("Работа"))
+                                            contentValues.put(DBHelper.KEY_POSID,1);
+                                        else if (autoCompleteTextView3.getText().toString().equals("Relaxing")||autoCompleteTextView3.getText().toString().equals("Отдых"))
+                                            contentValues.put(DBHelper.KEY_POSID,2);
                                 database.insert(DBHelper.TABLE_FILLS,null,contentValues);
                                 Log.d("ExcFillInsertLog", "Exception");
 
@@ -438,6 +468,13 @@ public class CreateEventActivity extends AppCompatActivity {
                                     contentValues.put(DBHelper.KEY_TIMEE, button2.getText().toString());
                                     contentValues.put(DBHelper.KEY_DATA, data);
                                     contentValues.put(DBHelper.KEY_TIMENOTIF, autoCompleteTextView1.getText().toString());
+                                    if (!autoCompleteTextView3.getText().toString().equals(""))
+                                        if (autoCompleteTextView3.getText().toString().equals("Studying")||autoCompleteTextView3.getText().toString().equals("Учеба"))
+                                            contentValues.put(DBHelper.KEY_POSID,0);
+                                        else if (autoCompleteTextView3.getText().toString().equals("Working")||autoCompleteTextView3.getText().toString().equals("Работа"))
+                                            contentValues.put(DBHelper.KEY_POSID,1);
+                                        else if (autoCompleteTextView3.getText().toString().equals("Relaxing")||autoCompleteTextView3.getText().toString().equals("Отдых"))
+                                            contentValues.put(DBHelper.KEY_POSID,2);
                                     setTimeNotifMillis();
                                     contentValues.put(DBHelper.KEY_TIMENOTIFMILLIS, timeNotifMillis);
                                     contentValues.put(DBHelper.KEY_DESCRIPTIONS, editText2.getText().toString());
@@ -568,9 +605,4 @@ public class CreateEventActivity extends AppCompatActivity {
         else if(autoCompleteTextView1.getText().toString().equals("24 hours")||autoCompleteTextView1.getText().toString().equals("24 часа"))
             timeNotifMillis = 86400000;
     }
-
-
-
-
-
 }

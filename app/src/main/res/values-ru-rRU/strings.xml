@@ -39,7 +39,13 @@
     <item>Еженедельно</item>
     <item>Ежемесячно</item>
         <item>Ежегодно</item>
+
 </string-array>
+    <string-array name="cat">
+    <item>Учеба</item>
+    <item>Работа</item>
+    <item>Отдых</item>
+    </string-array>
     <string name="editing">Редактирование</string>
     <string name="deleting">Удаление</string>
     <string name="wipe">Сбросить</string>
@@ -47,6 +53,8 @@
     <string name="cardnotif">\"Уведомим:    \"</string>
     <string name="Repeatcard">\"Повтор: \"</string>
     <string name="Themes">Тема</string>
+    <string name="catname">Категория</string>
+
 
 
 

@@ -69,6 +69,40 @@
             android:layout_column="0"
             android:layout_gravity="fill"
             android:gravity="center_vertical"
+            android:text="@string/catname"
+            android:textSize="18sp"
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_height="56dp"
+            android:layout_width="160dp"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_gravity="fill_vertical|right"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            android:layout_marginTop="10dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/category"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:fontFamily="sans-serif"
+                android:inputType="none"
+                android:scrollbarSize="0dp"
+                android:textSize="14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:layout_gravity="fill"
+            android:gravity="center_vertical"
             android:text="@string/allday"
             android:textSize="18sp" />
 
@@ -76,7 +110,7 @@
             android:id="@+id/switch1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_row="1"
+            android:layout_row="2"
             android:layout_column="1"
             android:layout_gravity="end"
 
@@ -88,7 +122,7 @@
             style="@style/EventButton"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_row="2"
+            android:layout_row="3"
             android:layout_column="0"
             android:layout_columnSpan="2"
             android:layout_gravity="fill"
@@ -101,7 +135,7 @@
             style="@style/EventButton"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_row="3"
+            android:layout_row="4"
             android:layout_column="0"
             android:layout_columnSpan="2"
             android:layout_gravity="fill"
@@ -114,7 +148,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
             app:cardBackgroundColor="#A1A1A1"
-            android:layout_row="4"
+            android:layout_row="5"
             android:layout_column="0"
             android:layout_columnSpan="2"/>
 
@@ -122,7 +156,7 @@
             android:id="@+id/imb3"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_row="5"
+            android:layout_row="6"
             android:layout_gravity="fill"
             android:layout_column="0"
             android:layout_columnSpan="2"
@@ -176,7 +210,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_row="8"
+            android:layout_row="9"
             android:layout_column="0"
             android:layout_gravity="fill_vertical"
             android:text="@string/repeate"
@@ -187,7 +221,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_height="56dp"
             android:layout_width="160dp"
-            android:layout_row="8"
+            android:layout_row="9"
             android:layout_column="1"
             android:layout_gravity="fill_vertical|right"
             app:boxCornerRadiusBottomEnd="10dp"
@@ -211,7 +245,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_row="10"
+            android:layout_row="11"
             android:layout_column="0"
             android:layout_gravity="fill"
             android:layout_marginTop="20dp"
@@ -232,7 +266,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="30dp"
             app:cardBackgroundColor="#A1A1A1"
-            android:layout_row="11"
+            android:layout_row="12"
             android:layout_column="0"
             android:layout_columnSpan="2"/>
 
@@ -241,7 +275,7 @@
             android:layout_width="wrap_content"
             android:minHeight="48dp"
             android:layout_height="fill_parent"
-            android:layout_row="12"
+            android:layout_row="13"
             android:layout_column="0"
             android:layout_columnSpan="2"
             android:layout_gravity="fill"
