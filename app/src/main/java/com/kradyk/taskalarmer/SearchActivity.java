@@ -9,6 +9,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,12 +25,29 @@ public class SearchActivity extends AppCompatActivity {
     SearchAdapter searchAdapter;
     ArrayList<SearchItem> list = new ArrayList();
     DBHelper dbHelper;
+    AutoCompleteTextView autoCompleteTextView;
+    String selection;
+    String[] selectionArgs;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.searchactivity);
+
+
+        autoCompleteTextView = findViewById(R.id.categorysrch);
+
+        String[] cat = getResources().getStringArray(R.array.cat);
+        autoCompleteTextView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, cat));
         listSearchView();
         buildRV1();
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                listSearchView();
+                buildRV1();
+            }
+        });
 
     }
     @Override
@@ -69,7 +89,15 @@ public class SearchActivity extends AppCompatActivity {
         list.clear();
         dbHelper = new DBHelper(this, "String", 1);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor c = db.query("events", null, null, null, null, null, "title ASC");
+        String table = "events as EV inner join categories as CT on EV.posid = CT._id";
+        if(!autoCompleteTextView.getText().toString().equals("")){
+            selection = "CT.cat = ?";
+            selectionArgs = new String[]{autoCompleteTextView.getText().toString()};}
+        else {selection = null;
+            selectionArgs = null;}
+
+
+        Cursor c = db.query(table, null, selection, selectionArgs, null, null, "title ASC");
         if (c.moveToFirst()) {
 
             int dataIndex = c.getColumnIndex(DBHelper.KEY_DATA);

@@ -27,9 +27,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String KEY_INTERVAL = "interval";
     public static final String KEY_TIMEBINT = "timebint";
     public static final String KEY_TIMEEINT = "timeeint";
-    public static final String KEY_STUDYING = "studying";
-    public static final String KEY_RELAXING = "relaxing";
-    public static final String KEY_WORKING = "working";
+    public static final String KEY_CAT = "cat";
     public static final String KEY_POSID = "posid";
 
 
@@ -45,7 +43,13 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("create table "+ TABLE_FILLS+"("+ KEY_ID
                 +" integer primary key,"+KEY_TIMENOTIF+" text,"+KEY_TIMEB+" text,"+KEY_TIMEE+" text,"+KEY_TITLE+" text,"+KEY_TIMENOTIFMILLIS+" INTEGER,"+ KEY_POSID+" INTEGER"+")");
         db.execSQL("create table "+ TABLE_CATEGORY+"("+ KEY_ID
-                +" integer primary key,"+KEY_STUDYING+" text,"+KEY_RELAXING+" text,"+KEY_WORKING+" text"+")");
+                +" integer primary key,"+KEY_CAT+" text"+")");
+        db.execSQL("INSERT INTO "+ TABLE_CATEGORY +" (" + KEY_CAT
+                + ") VALUES ('Studying');");
+        db.execSQL("INSERT INTO "+ TABLE_CATEGORY +" (" + KEY_CAT
+                + ") VALUES ('Working');");
+        db.execSQL("INSERT INTO "+ TABLE_CATEGORY +" (" + KEY_CAT
+                + ") VALUES ('Relaxing');");
     }
 
     @Override
