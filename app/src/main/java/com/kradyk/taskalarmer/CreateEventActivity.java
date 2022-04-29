@@ -13,6 +13,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,6 +32,8 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
@@ -48,6 +51,8 @@ public class CreateEventActivity extends AppCompatActivity {
     public AutoCompleteTextView autoCompleteTextView3;
     int hour=0;
     int minute=0;
+    ArrayList cat = new ArrayList();
+
 
     AlarmManager alarmManager;
     PendingIntent pendingIntent;
@@ -123,6 +128,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
         editText2 = findViewById(R.id.edtxt2);
 
+
         String[] notifybef = getResources().getStringArray(R.array.notif);
         autoCompleteTextView1 = findViewById(R.id.notifybefore);
         autoCompleteTextView1.setText(notifybef[0]);
@@ -149,9 +155,32 @@ public class CreateEventActivity extends AppCompatActivity {
         autoCompleteTextView2.setText(repeating[0]);
         autoCompleteTextView2.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, repeating ));
 
-        String[] cat = getResources().getStringArray(R.array.cat);
+        dbHelper = new DBHelper(this, "String", 1);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        cat.add("");
+        Cursor c = db.query("categories", null, null, null, null, null, null);
+        if (c.moveToFirst()) {
+
+            int catIndex = c.getColumnIndex(DBHelper.KEY_CAT);
+
+            do {
+                cat.add(c.getString(catIndex));
+                Log.d("mainLog", c.getString(catIndex));
+            } while (c.moveToNext());
+        } else
+            Log.d("mainLog", "0 rows");
+        c.close();
+        cat.add("Добавить");
         autoCompleteTextView3 = findViewById(R.id.category);
         autoCompleteTextView3.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, cat));
+        autoCompleteTextView3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(adapterView.getItemAtPosition(i).equals("Добавить")){
+
+                }
+            }
+        });
 
         dbHelper= new DBHelper(this,"String",1);
         database = dbHelper.getWritableDatabase();

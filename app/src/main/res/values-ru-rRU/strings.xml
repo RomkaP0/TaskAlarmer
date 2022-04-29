@@ -41,12 +41,7 @@
         <item>Ежегодно</item>
 
 </string-array>
-    <string-array name="cat">
-        <item></item>
-    <item>Учеба</item>
-    <item>Работа</item>
-    <item>Отдых</item>
-    </string-array>
+
     <string name="editing">Редактирование</string>
     <string name="deleting">Удаление</string>
     <string name="wipe">Сбросить</string>

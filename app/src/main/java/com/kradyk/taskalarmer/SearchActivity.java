@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,7 +13,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -28,6 +31,7 @@ public class SearchActivity extends AppCompatActivity {
     AutoCompleteTextView autoCompleteTextView;
     String selection;
     String[] selectionArgs;
+    ArrayList cat = new ArrayList();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,9 +40,24 @@ public class SearchActivity extends AppCompatActivity {
 
 
         autoCompleteTextView = findViewById(R.id.categorysrch);
+        dbHelper = new DBHelper(this, "String", 1);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor c = db.query("categories", null, null, null, null, null, null);
+        cat.add("");
+        if (c.moveToFirst()) {
 
-        String[] cat = getResources().getStringArray(R.array.cat);
-        autoCompleteTextView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, cat));
+            int catIndex = c.getColumnIndex(DBHelper.KEY_CAT);
+
+            do {
+                cat.add(c.getString(catIndex));
+                Log.d("mainLog", c.getString(catIndex));
+            } while (c.moveToNext());
+        } else
+            Log.d("mainLog", "0 rows");
+        c.close();
+
+
+        autoCompleteTextView.setAdapter(new SearchCatAdapter(this, R.layout.itemlayout, cat));
         listSearchView();
         buildRV1();
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

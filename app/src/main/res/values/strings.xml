@@ -23,12 +23,7 @@
         <item>Monthly</item>
         <item>Yearly</item>
     </string-array>
-    <string-array name="cat">
-        <item></item>
-        <item>Studying</item>
-        <item>Working</item>
-        <item>Relaxing</item>
-    </string-array>
+
     <string name="app_name">Organizer</string>
     <string name="CrTitle">Title</string>
     <string name="allday">During the day</string>

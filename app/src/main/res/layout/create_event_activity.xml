@@ -85,7 +85,6 @@
             app:boxCornerRadiusTopEnd="10dp"
             app:boxCornerRadiusTopStart="10dp"
             android:layout_marginTop="10dp">
-
             <AutoCompleteTextView
                 android:id="@+id/category"
                 android:layout_width="160dp"
@@ -94,7 +93,6 @@
                 android:inputType="none"
                 android:scrollbarSize="0dp"
                 android:textSize="14sp" />
-
         </com.google.android.material.textfield.TextInputLayout>
         <TextView
             android:layout_width="wrap_content"
@@ -297,9 +295,5 @@
     </GridLayout>
 
 </ScrollView>
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
