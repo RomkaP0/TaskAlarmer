@@ -29,6 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String KEY_TIMEEINT = "timeeint";
     public static final String KEY_CAT = "cat";
     public static final String KEY_POSID = "posid";
+    public static final String KEY_IMP = "important";
 
 
     public DBHelper(@Nullable Context context, @Nullable String name, int version) {
@@ -39,17 +40,18 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table "+ TABLE_EVENTS+"("+ KEY_ID
         +" integer primary key,"+KEY_DATA+" text,"+KEY_TIMENOTIF+" text,"+KEY_TIMEB+" text,"+KEY_TIMEE+" text,"+KEY_TITLE+" text,"+ KEY_DESCRIPTIONS +" text,"+KEY_PARAL+" text,"+KEY_TIMEBMILLIS+" INTEGER,"+KEY_TIMENOTIFMILLIS +" INTEGER,"+KEY_REPEATING + " text," + KEY_INTERVAL+ " text,"+ KEY_TIMEBINT+ " INTEGER,"+ KEY_TIMEEINT+" INTEGER,"+ KEY_POSID+" INTEGER"+")");
-
         db.execSQL("create table "+ TABLE_FILLS+"("+ KEY_ID
                 +" integer primary key,"+KEY_TIMENOTIF+" text,"+KEY_TIMEB+" text,"+KEY_TIMEE+" text,"+KEY_TITLE+" text,"+KEY_TIMENOTIFMILLIS+" INTEGER,"+ KEY_POSID+" INTEGER"+")");
         db.execSQL("create table "+ TABLE_CATEGORY+"("+ KEY_ID
-                +" integer primary key,"+KEY_CAT+" text"+")");
-        db.execSQL("INSERT INTO "+ TABLE_CATEGORY +" (" + KEY_CAT
-                + ") VALUES ('Studying');");
-        db.execSQL("INSERT INTO "+ TABLE_CATEGORY +" (" + KEY_CAT
-                + ") VALUES ('Working');");
-        db.execSQL("INSERT INTO "+ TABLE_CATEGORY +" (" + KEY_CAT
-                + ") VALUES ('Relaxing');");
+                +" integer primary key,"+KEY_CAT+" text,"+KEY_IMP+" INTEGER"+")");
+        db.execSQL("INSERT INTO "+ TABLE_CATEGORY +" (" + KEY_CAT+", "+ KEY_IMP
+                + ") VALUES ('Without', 1);");
+        db.execSQL("INSERT INTO "+ TABLE_CATEGORY +" (" + KEY_CAT+", "+ KEY_IMP
+                + ") VALUES ('Studying', 2);");
+        db.execSQL("INSERT INTO "+ TABLE_CATEGORY +" (" + KEY_CAT+", "+ KEY_IMP
+                + ") VALUES ('Working', 2);");
+        db.execSQL("INSERT INTO "+ TABLE_CATEGORY +" (" + KEY_CAT+", "+ KEY_IMP
+                + ") VALUES ('Relaxing', 0);");
     }
 
     @Override

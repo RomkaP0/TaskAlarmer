@@ -6,8 +6,8 @@ import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,10 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -33,13 +35,19 @@ public class ItemAdapter  extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
     private final List<Item> items;
     private PendingIntent pendingIntent;
     private AlarmManager alarmManager;
+    private String[] notif ;
+    private String[] repeate ;
 
-    ItemAdapter(Context context, List<Item> items) {
+
+    ItemAdapter(Context context, List<Item> items, String[] notif, String[] repeate) {
         this.items = items;
         this.inflater = LayoutInflater.from(context);
+        this.notif = notif;
+        this.repeate = repeate;
     }
+    @NonNull
     @Override
-    public ItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.cardview, parent, false);
         return new ViewHolder(view, new MyClickListener(){
@@ -62,6 +70,7 @@ public class ItemAdapter  extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
                 i.putExtras(extras);
                 startActivity(parent.getContext(), i, null);
             }
+            @SuppressLint("UnspecifiedImmutableFlag")
             @Override
             public void onDelete(int p){
                 Log.d("adLog",Integer.toString(p));
@@ -82,7 +91,7 @@ public class ItemAdapter  extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
                 Item it = items.get(p);
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, it.getTitle()+" запланировано на \n"+ it.getDate()+"    "+it.getTimeb()+"-"+it.getTimee()+"\n"+ it.getDesc());
+                sendIntent.putExtra(Intent.EXTRA_TEXT, it.getTitle()+" "+parent.getResources().getString(R.string.schedule) +"\n"+ it.getDate()+"    "+it.getTimeb()+"-"+it.getTimee()+"\n"+ it.getDesc());
                 sendIntent.setType("text/plain");
 
                 Intent shareIntent = Intent.createChooser(sendIntent, null);
@@ -96,17 +105,51 @@ public class ItemAdapter  extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
         Item item = items.get(position);
         holder.titleView.setText(item.getTitle());
         String str = (item.getTimeb()+"-"+item.getTimee());
-        holder.notifyat.setText("Уведомим: "+ item.getTimenotif());
+        if (item.getCat()==2)
+            holder.imgline.setColorFilter(ContextCompat.getColor(holder.imageView.getContext(), R.color.teal_200));
+        if (item.getCat()==1)
+            holder.imgline.setColorFilter(ContextCompat.getColor(holder.imageView.getContext(), R.color.purple_500));
+        if (item.getCat()==0)
+            holder.imgline.setColorFilter(ContextCompat.getColor(holder.imageView.getContext(), R.color.purple_700));
+        holder.notifyat.setText(R.string.timenotif);
+        if (item.getTimenotif().equals("At moment")||item.getTimenotif().equals("В момент"))
+            holder.notifyat.append(" "+notif[0]);
+        else if(item.getTimenotif().contains("5"))
+                holder.notifyat.append(" "+notif[1]);
+            else if(item.getTimenotif().contains("1")){
+                if(item.getTimenotif().contains("10"))
+                    holder.notifyat.append(" "+notif[2]);
+                else if (item.getTimenotif().contains("12"))
+                    holder.notifyat.append(" "+notif[6]);
+                else
+                    holder.notifyat.append(" "+notif[4]);
+            }
+            else if(item.getTimenotif().contains("3"))
+                holder.notifyat.append(" "+notif[3]);
+            else if(item.getTimenotif().contains("6"))
+                holder.notifyat.append(" "+notif[5]);
+            else if(item.getTimenotif().contains("2"))
+                holder.notifyat.append(" "+notif[7]);
+            else
+                holder.notifyat.append(" "+notif[8]);
+
         if (item.getRepeat().equals("Нет")||item.getRepeat().equals("No")){
             holder.imageView.setVisibility(View.GONE);
             holder.dateView.setText(item.getDate());}
         else {
-            holder.dateView.setText("Повтор: "+ item.getRepeat());
-
-    }
+            holder.dateView.setText(R.string.repeate);
+            if (item.getRepeat().equals("Daily")||item.getRepeat().equals("Ежедневно"))
+                holder.dateView.append(" "+repeate[1]);
+            else if (item.getRepeat().equals("Weekly")||item.getRepeat().equals("Еженедельно"))
+                holder.dateView.append(" "+repeate[2]);
+            else if (item.getRepeat().equals("Monthly")||item.getRepeat().equals("Ежемесячно"))
+                holder.dateView.append(" "+repeate[3]);
+            else
+                holder.dateView.append(" "+repeate[4]);
+        }
         holder.timeView.setText(str);
         if (item.getParal().equals("1"))
-            holder.parall.setText("Запрет других событий");
+            holder.parall.setText(R.string.paral);
         else
             holder.parall.setVisibility(View.GONE);
         holder.descView.setText(item.getDesc());
@@ -122,10 +165,12 @@ public class ItemAdapter  extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
         MyClickListener listener;
         final TextView titleView, timeView,  dateView,descView, notifyat, parall;
         final ImageButton edit, delete , share;
+        ImageView imgline;
         ImageView imageView;
         ConstraintLayout constraintLayout;
         public ViewHolder(View view, MyClickListener listener){
             super(view);
+            imgline = view.findViewById(R.id.linecrd);
             titleView = view.findViewById(R.id.title1);
             timeView = view.findViewById(R.id.time1);
             dateView=view.findViewById(R.id.date1);
@@ -153,18 +198,15 @@ public class ItemAdapter  extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
                     listener.onEdit(this.getAdapterPosition());
                     break;
                 case R.id.delete:
-                    MaterialAlertDialogBuilder builderdlg= new MaterialAlertDialogBuilder(view.getContext(), R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Centered)
-                            .setTitle("Удалить событие")
-                            .setMessage("\nВы действительно хотите удалить событие? Данное действие нельзя отменить\n")
-                            .setPositiveButton("Принять", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    listener.onDelete(getAdapterPosition());
-                                    constraintLayout.setVisibility(View.INVISIBLE);
-                                    constraintLayout.setMaxHeight(1);
-                                }
+                    @SuppressLint("PrivateResource") MaterialAlertDialogBuilder builderdlg= new MaterialAlertDialogBuilder(view.getContext(), R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Centered)
+                            .setTitle(R.string.deleteev)
+                            .setMessage("\n"+ view.getResources().getString( R.string.deleteevbody)+"\n")
+                            .setPositiveButton("OK", (dialogInterface, i) -> {
+                                listener.onDelete(getAdapterPosition());
+                                constraintLayout.setVisibility(View.INVISIBLE);
+                                constraintLayout.setMaxHeight(1);
                             })
-                            .setNegativeButton("Отменить", null);
+                            .setNegativeButton(R.string.cancel, null);
                     builderdlg.show();
 
 

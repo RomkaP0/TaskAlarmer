@@ -46,9 +46,21 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".AuthActivity"
+            android:label="AuthActivity"
+            android:exported="true"
+            android:theme="@style/Theme.WithToolBar"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.example.AuthActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".Settings"
             android:label="Setting"
             android:exported="true"
+            android:configChanges="locale|orientation"
             android:theme="@style/Theme.WithToolBar"
             android:screenOrientation="portrait">
             <intent-filter>

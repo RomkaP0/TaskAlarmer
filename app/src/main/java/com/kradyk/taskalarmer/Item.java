@@ -10,8 +10,9 @@ public class Item {
     private String id;
     private String paral;
     private String repeat;
+    private int cat;
 
-    public Item(String id ,String title, String date, String timeb, String timee, String timenotif, String desc, String repeat, String paral){
+    public Item(String id ,String title, String date, String timeb, String timee, String timenotif, String desc, String repeat, String paral, int cat){
         this.timee = timee;
         this.title = title;
         this.date = date;
@@ -21,6 +22,7 @@ public class Item {
         this.id = id;
         this.paral= paral;
         this.repeat = repeat;
+        this.cat = cat;
     }
 
     public String getTitle() {
@@ -93,5 +95,13 @@ public class Item {
 
     public void setParal(String paral) {
         this.paral = paral;
+    }
+
+    public int getCat() {
+        return cat;
+    }
+
+    public void setCat(int cat) {
+        this.cat = cat;
     }
 }

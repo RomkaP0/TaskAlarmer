@@ -25,12 +25,15 @@
     </string-array>
 
     <string name="app_name">Organizer</string>
+    <string name="cancel">Cancel</string>
     <string name="CrTitle">Title</string>
     <string name="allday">During the day</string>
     <string name="timeb">Initial time</string>
     <string name="timee">End time</string>
+    <string name="paral">Cancel other events</string>
     <string name="date">Date</string>
-    <string name="timenotif">Notify in:</string>
+    <string name="schedule">is scheduled for</string>
+    <string name="timenotif">Notify:</string>
     <string name="repeate">Repeating</string>
     <string name="description">Description</string>
     <string name="parall">Other events\n in this time?</string>
@@ -45,5 +48,37 @@
     <string name="cardnotif">\"Notify:    \"</string>
     <string name="Repeatcard">\"Repeating: \"</string>
     <string name="Themes">Theme</string>
+    <string name="lang">Language</string>
     <string name="catname">Category</string>
+    <string name="deleteev">Deleting event</string>
+    <string name="deleteevbody">Do you want to delete the event? This action cannot be undone.</string>
+    <string name="ru">Русский</string>
+    <string name="en">English</string>
+
+
+    <string name="swipe_left_for_register">Swipe Left for Register</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="e_mail">Email</string>
+    <string name="tag">Let\'s join us and \nBuild your relationship with others</string>
+    <string name="swipe_right_for_login">Swipe Right for Login</string>
+    <string name="register">Register</string>
+    <string name="re_type_password">Re-type Password</string>
+    <string name="your_name">Full Name</string>
+    <string name="name">Write your name</string>
+    <string name="email">Wrong email</string>
+    <string name="inppass">Write passwort</string>
+    <string name="notequalpass">Passwords aren`t equal</string>
+    <string name="loginbtn">Login</string>
+    <string name="regbtn">Register</string>
+    <string name="passshort">Password too short</string>
+    <string name="forgotpass">Are you forgot password?</string>
+    <string name="Hello">Hello</string>
+    <string name="accexist">Email is already used</string>
+    <string name="checkemail">, please, check email</string>
+    <string name="verify">Please, verify email</string>
+
+
+
+
 </resources>

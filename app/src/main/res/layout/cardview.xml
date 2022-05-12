@@ -7,22 +7,27 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
-        style="@style/cardStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_margin="8dp"
 
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:id="@+id/linecrd"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/diagonalline"/>
 
         <LinearLayout
+            android:id="@+id/cardlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            >
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -34,6 +39,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/repeatingIC"
                         android:layout_width="24dp"

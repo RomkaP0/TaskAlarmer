@@ -2,11 +2,13 @@ package com.kradyk.taskalarmer;
 
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -51,13 +53,14 @@ public class CreateEventActivity extends AppCompatActivity {
     public AutoCompleteTextView autoCompleteTextView3;
     int hour=0;
     int minute=0;
-    ArrayList cat = new ArrayList();
-
+    ArrayList cat = new ArrayList<String>();
+    ArrayList catid = new ArrayList<Integer>();
 
     AlarmManager alarmManager;
     PendingIntent pendingIntent;
 
     long timeNotifMillis = 0;
+    int c=0;
 
     ScrollView scrollView;
     FillItem fillItem;
@@ -115,15 +118,12 @@ public class CreateEventActivity extends AppCompatActivity {
         Calendar cal = Calendar.getInstance();
 
         SwitchCompat switcher = findViewById(R.id.paralsw);
-        switcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    switchvalue = "1";
-                }
-                else
-                    switchvalue = "0";
+        switcher.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (b) {
+                switchvalue = "1";
             }
+            else
+                switchvalue = "0";
         });
 
         editText2 = findViewById(R.id.edtxt2);
@@ -157,10 +157,8 @@ public class CreateEventActivity extends AppCompatActivity {
 
         dbHelper = new DBHelper(this, "String", 1);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        cat.add("");
         Cursor c = db.query("categories", null, null, null, null, null, null);
         if (c.moveToFirst()) {
-
             int catIndex = c.getColumnIndex(DBHelper.KEY_CAT);
 
             do {
@@ -171,20 +169,55 @@ public class CreateEventActivity extends AppCompatActivity {
             Log.d("mainLog", "0 rows");
         c.close();
         cat.add("Добавить");
+        dbHelper= new DBHelper(this,"String",1);
+        database = dbHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
         autoCompleteTextView3 = findViewById(R.id.category);
         autoCompleteTextView3.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, cat));
+        autoCompleteTextView3.setText("Without", false);
         autoCompleteTextView3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(adapterView.getItemAtPosition(i).equals("Добавить")){
-
+                    EditText inputEditTextField = new EditText(view.getContext());
+                    AlertDialog dialog = new AlertDialog.Builder(view.getContext())
+                            .setTitle("Введите название категории")
+                            .setView(inputEditTextField)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    int c=0;
+                                    for(Object j:cat){
+                                        String k = (String) j;
+                                        if ( k.toLowerCase().trim().equals(inputEditTextField.getText().toString().toLowerCase().trim()))
+                                            c+=1;
+                                    }
+                                    if (c==0){
+                                    cat.add(cat.size()-1,inputEditTextField.getText().toString());
+                                    autoCompleteTextView3.setText(cat.get(cat.size()-2).toString(), false);
+                                    contentValues.clear();
+                                    contentValues.put(DBHelper.KEY_IMP, 1);
+                                    contentValues.put(DBHelper.KEY_CAT, cat.get(cat.size()-2).toString());
+                                    database.insert(DBHelper.TABLE_CATEGORY, null, contentValues);}
+                                    else{
+                                        Toast.makeText(getApplicationContext(), "Already exist", Toast.LENGTH_SHORT).show();
+                                        autoCompleteTextView3.setText("Without", false);
+                                    }
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    autoCompleteTextView3.setText("Without", false);
+                                }
+                            })
+                            .create();
+                    dialog.show();
                 }
             }
         });
 
-        dbHelper= new DBHelper(this,"String",1);
-        database = dbHelper.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
+
         scrollView = findViewById(R.id.scrollviewd1);
 
 
@@ -377,13 +410,19 @@ public class CreateEventActivity extends AppCompatActivity {
                                     setTimeNotifMillis();
                                     contentValues.put(DBHelper.KEY_TIMENOTIFMILLIS, timeNotifMillis);
 
-                                    if (!autoCompleteTextView3.getText().toString().equals(""))
-                                        if (autoCompleteTextView3.getText().toString().equals("Studying")||autoCompleteTextView3.getText().toString().equals("Учеба"))
-                                            contentValues.put(DBHelper.KEY_POSID,1);
-                                        else if (autoCompleteTextView3.getText().toString().equals("Working")||autoCompleteTextView3.getText().toString().equals("Работа"))
-                                            contentValues.put(DBHelper.KEY_POSID,2);
-                                        else if (autoCompleteTextView3.getText().toString().equals("Relaxing")||autoCompleteTextView3.getText().toString().equals("Отдых"))
-                                            contentValues.put(DBHelper.KEY_POSID,3);
+                                    catid.clear();
+                                    catid.add(0);
+                                    Cursor c = db.query("categories", null, null, null, null, null, null);
+                                    if (c.moveToFirst()) {
+                                        int cat_ID= c.getColumnIndex(DBHelper.KEY_ID);
+                                        int catIndex = c.getColumnIndex(DBHelper.KEY_CAT);
+
+                                        do {
+                                            catid.add(cat.indexOf(c.getString(catIndex)), Integer.parseInt(c.getString(cat_ID)));
+                                        } while (c.moveToNext());
+                                    } else
+                                        Log.d("mainLog", "0 rows");
+                                    c.close();
 
                                     database.insert(DBHelper.TABLE_FILLS,null,contentValues);
                                     Log.d("ExcFillInsertLog", "Exception");
@@ -401,6 +440,7 @@ public class CreateEventActivity extends AppCompatActivity {
                                         contentValues.put(DBHelper.KEY_INTERVAL, cal.get(Calendar.DAY_OF_MONTH));
                                     else if (autoCompleteTextView2.getText().toString().equals("Ежегодно")||autoCompleteTextView2.getText().toString().equals("Yearly"))
                                         contentValues.put(DBHelper.KEY_INTERVAL, cal.get(Calendar.DAY_OF_MONTH)+"."+(cal.get(Calendar.MONTH)+1));
+                                    contentValues.put(DBHelper.KEY_POSID, (Integer) catid.get(cat.indexOf(autoCompleteTextView3.getText().toString())));
 
 
 
@@ -415,13 +455,22 @@ public class CreateEventActivity extends AppCompatActivity {
                                     contentValues.put(DBHelper.KEY_TIMENOTIF, autoCompleteTextView1.getText().toString());
                                     setTimeNotifMillis();
                                     contentValues.put(DBHelper.KEY_TIMENOTIFMILLIS, timeNotifMillis);
-                                    if (!autoCompleteTextView3.getText().toString().equals(""))
-                                        if (autoCompleteTextView3.getText().toString().equals("Studying")||autoCompleteTextView3.getText().toString().equals("Учеба"))
-                                            contentValues.put(DBHelper.KEY_POSID,1);
-                                        else if (autoCompleteTextView3.getText().toString().equals("Working")||autoCompleteTextView3.getText().toString().equals("Работа"))
-                                            contentValues.put(DBHelper.KEY_POSID,2);
-                                        else if (autoCompleteTextView3.getText().toString().equals("Relaxing")||autoCompleteTextView3.getText().toString().equals("Отдых"))
-                                            contentValues.put(DBHelper.KEY_POSID,3);
+
+                                    catid.clear();
+                                    catid.add(0);
+                                    Cursor c = db.query("categories", null, null, null, null, null, null);
+                                    if (c.moveToFirst()) {
+                                        int cat_ID= c.getColumnIndex(DBHelper.KEY_ID);
+                                        int catIndex = c.getColumnIndex(DBHelper.KEY_CAT);
+
+                                        do {
+                                            catid.add(cat.indexOf(c.getString(catIndex)), Integer.parseInt(c.getString(cat_ID)));
+                                        } while (c.moveToNext());
+                                    } else
+                                        Log.d("mainLog", "0 rows");
+                                    c.close();
+                                    contentValues.put(DBHelper.KEY_POSID, (Integer) catid.get(cat.indexOf(autoCompleteTextView3.getText().toString())));
+
 
                                     contentValues.put(DBHelper.KEY_DATA, data);
                                     contentValues.put(DBHelper.KEY_DESCRIPTIONS, editText2.getText().toString());
@@ -451,15 +500,25 @@ public class CreateEventActivity extends AppCompatActivity {
                                 contentValues.put(DBHelper.KEY_TIMENOTIF, autoCompleteTextView1.getText().toString());
                                 setTimeNotifMillis();
                                 contentValues.put(DBHelper.KEY_TIMENOTIFMILLIS, timeNotifMillis);
-                                    if (!autoCompleteTextView3.getText().toString().equals(""))
-                                        if (autoCompleteTextView3.getText().toString().equals("Studying")||autoCompleteTextView3.getText().toString().equals("Учеба"))
-                                            contentValues.put(DBHelper.KEY_POSID,1);
-                                        else if (autoCompleteTextView3.getText().toString().equals("Working")||autoCompleteTextView3.getText().toString().equals("Работа"))
-                                            contentValues.put(DBHelper.KEY_POSID,2);
-                                        else if (autoCompleteTextView3.getText().toString().equals("Relaxing")||autoCompleteTextView3.getText().toString().equals("Отдых"))
-                                            contentValues.put(DBHelper.KEY_POSID,3);
-                                database.insert(DBHelper.TABLE_FILLS,null,contentValues);
+                                    catid.clear();
+                                    Cursor c = db.query("categories", null, null, null, null, null, null);
+                                    if (c.moveToFirst()) {
+                                        int cat_ID= c.getColumnIndex(DBHelper.KEY_ID);
+                                        int catIndex = c.getColumnIndex(DBHelper.KEY_CAT);
+
+                                        do {
+                                            catid.add(cat.indexOf(c.getString(catIndex)), Integer.parseInt(c.getString(cat_ID)));
+                                        } while (c.moveToNext());
+                                    } else
+                                        Log.d("mainLog", "0 rows");
+                                    c.close();
+
+
+                                    database.insert(DBHelper.TABLE_FILLS,null,contentValues);
                                 Log.d("ExcFillInsertLog", "Exception");
+                                    int find = (int) catid.get(cat.indexOf(autoCompleteTextView3.getText().toString()));
+
+                                    contentValues.put(DBHelper.KEY_POSID, find);
 
                                 contentValues.put(DBHelper.KEY_DATA, data);
                                 contentValues.put(DBHelper.KEY_PARAL, switchvalue );
@@ -489,18 +548,29 @@ public class CreateEventActivity extends AppCompatActivity {
                             }
                             }else{
                                 if (count == 0) {
+                                    contentValues.clear();
                                     contentValues.put(DBHelper.KEY_TITLE, autoCompleteTextView.getText().toString());
                                     contentValues.put(DBHelper.KEY_TIMEB, button1.getText().toString());
                                     contentValues.put(DBHelper.KEY_TIMEE, button2.getText().toString());
                                     contentValues.put(DBHelper.KEY_DATA, data);
                                     contentValues.put(DBHelper.KEY_TIMENOTIF, autoCompleteTextView1.getText().toString());
-                                    if (!autoCompleteTextView3.getText().toString().equals(""))
-                                        if (autoCompleteTextView3.getText().toString().equals("Studying")||autoCompleteTextView3.getText().toString().equals("Учеба"))
-                                            contentValues.put(DBHelper.KEY_POSID,1);
-                                        else if (autoCompleteTextView3.getText().toString().equals("Working")||autoCompleteTextView3.getText().toString().equals("Работа"))
-                                            contentValues.put(DBHelper.KEY_POSID,2);
-                                        else if (autoCompleteTextView3.getText().toString().equals("Relaxing")||autoCompleteTextView3.getText().toString().equals("Отдых"))
-                                            contentValues.put(DBHelper.KEY_POSID,3);
+
+                                    catid.clear();
+                                    catid.add(0);
+                                    Cursor c = db.query("categories", null, null, null, null, null, null);
+                                    if (c.moveToFirst()) {
+                                        int cat_ID= c.getColumnIndex(DBHelper.KEY_ID);
+                                        int catIndex = c.getColumnIndex(DBHelper.KEY_CAT);
+
+                                        do {
+                                            catid.add(cat.indexOf(c.getString(catIndex)), Integer.parseInt(c.getString(cat_ID)));
+                                        } while (c.moveToNext());
+                                    } else
+                                        Log.d("mainLog", "0 rows");
+                                    c.close();
+                                        contentValues.put(DBHelper.KEY_POSID, (Integer) catid.get(cat.indexOf(autoCompleteTextView3.getText().toString())));
+
+
                                     setTimeNotifMillis();
                                     contentValues.put(DBHelper.KEY_TIMENOTIFMILLIS, timeNotifMillis);
                                     contentValues.put(DBHelper.KEY_DESCRIPTIONS, editText2.getText().toString());

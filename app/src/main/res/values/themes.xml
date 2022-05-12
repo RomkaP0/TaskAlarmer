@@ -29,10 +29,6 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="cardStyle">
-        <item name="android:backgroundTint">#FBFBFB</item>
-    </style>
-
 
 
     <style name="Theme.App.Calendar" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">

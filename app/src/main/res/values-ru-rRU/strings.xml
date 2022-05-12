@@ -4,6 +4,7 @@
     <string name="search_page">Поиск</string>
     <string name="setting_page">Настройки</string>
     <string name="page_title">Органайзер</string>
+    <string name="paral">Запрет других событий</string>
     <string name="item1">Сегодня</string>
     <string name="item2">Добавить</string>
     <string name="item3">Настройки</string>
@@ -12,9 +13,10 @@
     <string name="timeb">Начало</string>
     <string name="timee">Окончание</string>
     <string name="date">Дата</string>
-    <string name="timenotif">Уведомить</string>
+    <string name="timenotif">Уведомить:</string>
     <string name="repeate">Повторять</string>
     <string name="parall">Запрет\nсобытий</string>
+    <string name="cancel">Отмена</string>
     <string name="description">Описание</string>
     <string name="resetFills">Сбросить подсказки</string>
     <string name="Ltheme">Светлая</string>
@@ -50,8 +52,34 @@
     <string name="Repeatcard">\"Повтор: \"</string>
     <string name="Themes">Тема</string>
     <string name="catname">Категория</string>
+    <string name="lang">Язык</string>
+    <string name="schedule">запланировано на</string>
+    <string name="deleteev">Удаление события</string>
+    <string name="deleteevbody">Вы действительно хотите удалить событие? Данное действие нельзя отменить.</string>
 
-
+    <string name="swipe_left_for_register">Проведи влево для Регистрации</string>
+    <string name="login">Login</string>
+    <string name="password">Пароль</string>
+    <string name="e_mail">Электронная почта</string>
+    <string name="tag">Присоединяйся к нам и \nпланируй свой день успешнее</string>
+    <string name="swipe_right_for_login">Проведи вправо для Входа</string>
+    <string name="register">Register</string>
+    <string name="re_type_password">Повторите пароль</string>
+    <string name="your_name">Имя</string>
+    <string name="name">Введите имя</string>
+    <string name="ru">Русский</string>
+    <string name="en" translatable="false">English</string>
+    <string name="email">Неверный формат почты</string>
+    <string name="inppass">Введите пароль</string>
+    <string name="notequalpass">Пароли не совпадают</string>
+    <string name="loginbtn">Войти</string>
+    <string name="regbtn">Зарегистрировать</string>
+    <string name="passshort">Пароль слишком короткий</string>
+    <string name="forgotpass">Забыли пароль?</string>
+    <string name="Hello">Привет</string>
+    <string name="accexist">Почта уже используется</string>
+    <string name="checkemail">, пожалуйста, проверь почту</string>
+    <string name="verify">Пожалуйста, подтвердите почту</string>
 
 
 </resources>
