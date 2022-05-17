@@ -6,4 +6,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="black">#000000</color>
 
+    <color name="main">#FBBC52</color>
+    <color name="secondary">#F57C00</color>
+
 </resources>

@@ -9,18 +9,18 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/tv_subtitle"
         android:layout_marginStart="25dp"
         android:layout_marginBottom="10dp"
         android:fontFamily="@font/indigo_daisy"
         android:text="@string/login"
-        android:textSize="50sp" />
+        android:textSize="50sp"
+        android:layout_above="@+id/tv_subtitle"/>
 
     <TextView
         android:id="@+id/tv_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/et_email"
+        android:layout_above="@+id/et_email"
         android:layout_marginStart="25dp"
         android:layout_marginBottom="50dp"
         android:fontFamily="@font/roboto_regular"
@@ -31,37 +31,49 @@
         android:id="@+id/et_email"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_above="@id/et_password"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/et_custom"
         android:fontFamily="@font/roboto_regular"
         android:hint="@string/e_mail"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/etPasswordLayout"
         android:inputType="textEmailAddress"
         android:padding="15dp"
         android:textSize="15sp" />
 
-    <EditText
-        android:id="@+id/et_password"
+    <com.google.android.material.textfield.TextInputLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/etPasswordLayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        app:passwordToggleEnabled="true"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/et_custom"
-        android:fontFamily="@font/roboto_regular"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:maxLength="16"
-        android:padding="15dp"
-        android:textSize="15sp" />
+        app:hintEnabled="false">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/et_email"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/et_custom"
+            android:fontFamily="@font/roboto_regular"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:padding="15dp"
+            android:textSize="15sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/et_password"
+        android:layout_below="@id/etPasswordLayout"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="15dp"
         android:layout_marginRight="20dp"
@@ -69,6 +81,22 @@
         android:fontFamily="@font/roboto_regular"
         android:text="@string/loginbtn"
         android:textColor="@android:color/white" />
+    <LinearLayout
+        android:layout_below="@id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+android:layout_marginHorizontal="20dp">
+    <ImageButton
+        android:id="@+id/googleauth"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/roundedbtn"
+        android:src="@drawable/ic__534129544"
+        />
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/forgot"
@@ -76,7 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_login"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="25dp"
         android:fontFamily="@font/roboto_regular"
         android:text="@string/forgotpass"

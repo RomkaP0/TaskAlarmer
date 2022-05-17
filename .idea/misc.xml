@@ -67,6 +67,7 @@
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/drawable/grgreenlight.xml" value="0.195" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/drawable/grredlight.xml" value="0.17" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/drawable/gryellowlight.xml" value="0.195" />
+        <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/drawable/ic__534129544.xml" value="0.195" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/drawable/ic_arrow_left.xml" value="0.175" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/drawable/ic_arrow_right.xml" value="0.175" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/drawable/ic_baseline_clear_24.xml" value="0.1" />
@@ -77,7 +78,9 @@
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/drawable/ic_iconmonstr_share_2.xml" value="0.195" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1796875" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/drawable/ic_refresh.xml" value="0.175" />
-        <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/drawable/roundedbtn.xml" value="0.195" />
+        <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/activity_profile.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/auth_activity.xml" value="0.23822463768115942" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/autolist.xml" value="0.25" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/cardview.xml" value="0.264" />
@@ -85,7 +88,7 @@
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/catsearch.xml" value="0.1421875" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/create_event_activity.xml" value="0.25" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/dropdown_text_twoline.xml" value="0.1421875" />
-        <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/fragment_login.xml" value="0.23822463768115942" />
+        <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/fragment_login.xml" value="0.25" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/fragment_register.xml" value="0.23822463768115942" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/itemlayout.xml" value="0.1" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/searchactivity.xml" value="0.5166846071044133" />

@@ -229,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
 
     }
+
     private void LangLoadPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences(
                 "lang", MODE_PRIVATE);

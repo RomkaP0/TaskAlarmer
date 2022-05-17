@@ -3,11 +3,11 @@ package com.kradyk.taskalarmer;
 import static androidx.core.content.ContextCompat.startActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,9 +23,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import java.util.List;
+
+import dev.shreyaspatil.MaterialDialog.AbstractDialog;
+import dev.shreyaspatil.MaterialDialog.BottomSheetMaterialDialog;
+import dev.shreyaspatil.MaterialDialog.interfaces.DialogInterface;
 
 public class ItemAdapter  extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
     DBHelper dbHelper;
@@ -198,16 +199,29 @@ public class ItemAdapter  extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
                     listener.onEdit(this.getAdapterPosition());
                     break;
                 case R.id.delete:
-                    @SuppressLint("PrivateResource") MaterialAlertDialogBuilder builderdlg= new MaterialAlertDialogBuilder(view.getContext(), R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Centered)
-                            .setTitle(R.string.deleteev)
+
+                    BottomSheetMaterialDialog builderdlg = new BottomSheetMaterialDialog.Builder((Activity) view.getContext())
+                            .setTitle(view.getContext().getResources().getString(R.string.deleteev))
                             .setMessage("\n"+ view.getResources().getString( R.string.deleteevbody)+"\n")
-                            .setPositiveButton("OK", (dialogInterface, i) -> {
-                                listener.onDelete(getAdapterPosition());
-                                constraintLayout.setVisibility(View.INVISIBLE);
-                                constraintLayout.setMaxHeight(1);
+                            .setPositiveButton("OK", new AbstractDialog.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int which) {
+                                    listener.onDelete(getAdapterPosition());
+                                    constraintLayout.setVisibility(View.INVISIBLE);
+                                    constraintLayout.setMaxHeight(1);
+                                    dialogInterface.dismiss();
+                                }
+
                             })
-                            .setNegativeButton(R.string.cancel, null);
+                            .setNegativeButton(view.getContext().getResources().getString(R.string.cancel), new AbstractDialog.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int which) {
+                                    dialogInterface.dismiss();
+                                }
+                            })
+                            .build();
                     builderdlg.show();
+
 
 
                     break;

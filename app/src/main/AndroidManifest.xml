@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.kradyk.taskalarmer">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,75 +15,82 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyProject">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
-            <intent-filter>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.WithToolBar">
+
+        <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchActivity"
-            android:label="@string/search_page"
+        <activity
+            android:name=".SearchActivity"
             android:exported="true"
+            android:label="@string/search_page"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.example.SearchActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".CreateEventActivity"
-            android:label="CreateEventActivity"
             android:exported="true"
-            android:theme="@style/Theme.WithToolBar"
-            android:screenOrientation="portrait">
+            android:label="CreateEventActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.WithToolBar">
             <intent-filter>
                 <action android:name="com.example.CreateEventActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".AuthActivity"
-            android:label="AuthActivity"
             android:exported="true"
-            android:theme="@style/Theme.WithToolBar"
-            android:screenOrientation="portrait">
+            android:label="AuthActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.WithToolBar">
             <intent-filter>
                 <action android:name="com.example.AuthActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Settings"
-            android:label="Setting"
-            android:exported="true"
             android:configChanges="locale|orientation"
-            android:theme="@style/Theme.WithToolBar"
-            android:screenOrientation="portrait">
+            android:exported="true"
+            android:label="Setting"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.WithToolBar">
             <intent-filter>
                 <action android:name="com.example.Settings" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <receiver android:name=".AlarmReceiver"/>
-        
-        <receiver android:name=".BootReceiver"
-            android:exported="true"
-            android:enabled="true"
-            android:directBootAware="true">
 
+        <receiver android:name=".AlarmReceiver" />
+        <receiver
+            android:name=".BootReceiver"
+            android:directBootAware="true"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
-                <!--For HTC devices-->
-                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <!-- For HTC devices -->
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".DeleteReceiver"/>
-
+        <receiver android:name=".DeleteReceiver" />
     </application>
 
 </manifest>
