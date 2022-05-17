@@ -24,11 +24,11 @@
         app:layout_constraintBottom_toTopOf="@+id/nav"
         app:layout_constraintTop_toBottomOf="@+id/calendarview" />
 
-    <CalendarView
+    <com.kizitonwose.calendarview.CalendarView
         android:id="@+id/calendarview"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:cv_dayViewResource="@layout/calendar_day_layout"/>
 
 
 
