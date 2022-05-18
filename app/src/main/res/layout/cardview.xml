@@ -10,16 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        <ImageView
-            android:id="@+id/linecrd"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/diagonalline"/>
+
 
         <LinearLayout
             android:id="@+id/cardlayout"
@@ -27,6 +22,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:baselineAligned="false"
+            android:animateLayoutChanges="true"
             >
 
             <LinearLayout
@@ -57,7 +53,16 @@
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/time1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textAppearance="?attr/textAppearanceBody2"
+                        android:textColor="?android:attr/textColorSecondary" />
 
                     <TextView
 
@@ -65,18 +70,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_rowWeight="1"
-                        android:layout_marginTop="10dp" />
-
-                    <TextView
-                        android:id="@+id/time1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="30dp"
                         android:layout_marginTop="10dp"
-                        android:textAppearance="?attr/textAppearanceBody2"
-                        android:textColor="?android:attr/textColorSecondary" />
-                </LinearLayout>
+                        android:layout_marginStart="30dp"/>
 
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layoutunnecer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="vertical">
                 <TextView
                     android:id="@+id/notify"
                     android:layout_width="wrap_content"
@@ -102,15 +107,16 @@
                     android:layout_marginTop="16dp"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary" />
-
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layoutbtn"
                 android:layout_width="52dp"
                 android:layout_height="144dp"
                 android:layout_marginTop="12dp"
-
+                android:visibility="gone"
                 android:orientation="vertical">
                 <ImageButton
                     android:layout_width="48dp"

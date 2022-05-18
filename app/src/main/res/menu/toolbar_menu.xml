@@ -7,7 +7,7 @@
         android:id="@+id/appBarSearch"
         android:icon="@drawable/ic_search_24dp"
         app:showAsAction="always"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:actionViewClass="android.widget.SearchView"
         android:title="search" />
 
 

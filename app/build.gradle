@@ -23,7 +23,7 @@ android {
         }
     }
     buildFeatures{
-        viewBinding true;
+        viewBinding true
     }
     compileOptions {
         coreLibraryDesugaringEnabled true
@@ -36,6 +36,7 @@ android {
 
 dependencies {
 
+    implementation 'androidx.preference:preference:1.2.0'
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 
 
@@ -55,10 +56,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
 
-    implementation 'com.jaredrummler:cyanea:1.0.2'
 
-    implementation("com.himanshoe:kalendar:1.0.0-RC5")
-    implementation 'com.vivekkaushik.datepicker:datePickerTimeline:0.0.1'
 
     // Material Dialog Library
     implementation 'dev.shreyaspatil.MaterialDialog:MaterialDialog:2.2.3'
@@ -69,8 +67,12 @@ dependencies {
     // Lottie Animation Library
     implementation 'com.airbnb.android:lottie:5.0.3'
 
-    implementation 'com.github.kizitonwose:CalendarView:1.0.4'
+    implementation "androidx.core:core-ktx:1.7.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
 
 
 }
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlin-android'
+

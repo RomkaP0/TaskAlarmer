@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "665824354496",
+    "project_id": "taskalarmer-db565",
+    "storage_bucket": "taskalarmer-db565.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665824354496:android:cbad3094f194a0a1cdcd25",
+        "android_client_info": {
+          "package_name": "com.kradyk.TaskAlarmer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "665824354496-6ternkndbpjj550pnsp7crtuafnj536s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kradyk.TaskAlarmer",
+            "certificate_hash": "aa4bb91ac6576bacaeb205370949c1f934c066ae"
+          }
+        },
+        {
+          "client_id": "665824354496-19ucjcv4e6dvctn1gade7rvdv9du5j98.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdDAIV0iZr932m2SwrDK7jkC1hCncycEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "665824354496-19ucjcv4e6dvctn1gade7rvdv9du5j98.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
