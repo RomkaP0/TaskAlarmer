@@ -14,8 +14,6 @@ import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.kradyk.taskalarmerimport.DBHelper
-import com.kradyk.taskalarmerimport.Item
 import dev.shreyaspatil.MaterialDialog.BottomSheetMaterialDialog
 
 class ItemAdapter internal constructor(
@@ -34,7 +32,7 @@ class ItemAdapter internal constructor(
         val view = inflater.inflate(R.layout.cardview, parent, false)
         return ViewHolder(view, object : MyClickListener {
             override fun onEdit(p: Int) {
-                Log.d("adLog", Integer.toString(p))
+                Log.d("adLog", p.toString())
                 val it = items[p]
                 val i = Intent("com.example.CreateEventActivity")
                 val extras = Bundle()
@@ -54,7 +52,7 @@ class ItemAdapter internal constructor(
 
             @SuppressLint("UnspecifiedImmutableFlag")
             override fun onDelete(p: Int) {
-                Log.d("adLog", Integer.toString(p))
+                Log.d("adLog", p.toString())
                 val it = items[p]
                 dbHelper = DBHelper(parent.context, "String", 1)
                 val db = dbHelper!!.writableDatabase
@@ -129,13 +127,12 @@ ${it.desc}"""
         if (item.repeat == "Нет" || item.repeat == "No") {
             holder.imageView.visibility = View.GONE
         } else {
-            if (item.repeat == "Daily" || item.repeat == "Ежедневно")
-                holder.dateView.text = repeate[1]
-            else if (item.repeat == "Weekly" || item.repeat == "Еженедельно")
-                holder.dateView.text= repeate[2]
-            else if (item.repeat == "Monthly" || item.repeat == "Ежемесячно")
-                holder.dateView.text = repeate[3]
-             else holder.dateView.text = repeate[4]
+            when (item.repeat) {
+                "Daily", "Ежедневно" -> holder.dateView.text = repeate[1]
+                "Weekly", "Еженедельно" -> holder.dateView.text= repeate[2]
+                "Monthly", "Ежемесячно" -> holder.dateView.text = repeate[3]
+                else -> holder.dateView.text = repeate[4]
+            }
         }
         holder.timeView.text = str
         if (item.paral == "1") holder.parall.setText(R.string.paral) else holder.parall.visibility =
@@ -149,20 +146,20 @@ ${it.desc}"""
 
     class ViewHolder(view: View, listener: MyClickListener) : RecyclerView.ViewHolder(view),
         View.OnClickListener {
-        var listener: MyClickListener
+        private var listener: MyClickListener
         val titleView: TextView
         val timeView: TextView
         val dateView: TextView
         val descView: TextView
         val notifyat: TextView
         val parall: TextView
-        val edit: ImageButton
-        val delete: ImageButton
-        val share: ImageButton
+        private val edit: ImageButton
+        private val delete: ImageButton
+        private val share: ImageButton
         var imageView: ImageView
         var constraintLayout: ConstraintLayout
-        val layoutbtn:LinearLayout
-        val layoutunnecer: LinearLayout
+        private val layoutbtn:LinearLayout
+        private val layoutunnecer: LinearLayout
         @SuppressLint("NonConstantResourceId")
         override fun onClick(view: View) {
             when (view.id) {
@@ -188,14 +185,14 @@ ${it.desc}"""
     
     """.trimIndent()
                         )
-                        .setPositiveButton("OK") { dialogInterface, which ->
+                        .setPositiveButton("OK") { dialogInterface, _ ->
                             listener.onDelete(adapterPosition)
                             constraintLayout.visibility = View.INVISIBLE
                             constraintLayout.isClickable = false
                             constraintLayout.maxHeight = 1
                             dialogInterface.dismiss()
                         }
-                        .setNegativeButton(view.context.resources.getString(R.string.cancel)) { dialogInterface, which -> dialogInterface.dismiss() }
+                        .setNegativeButton(view.context.resources.getString(R.string.cancel)) { dialogInterface, _ -> dialogInterface.dismiss() }
                         .build()
                     builderdlg.show()
                 }

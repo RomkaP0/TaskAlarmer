@@ -1,4 +1,4 @@
-package com.kradyk.taskalarmerimport
+package com.kradyk.taskalarmer
 
 import android.content.*
 import android.database.sqlite.SQLiteDatabase
@@ -40,8 +40,6 @@ class DBHelper(context: Context?, name: String?, version: Int) :
     override fun onUpgrade(db: SQLiteDatabase, i: Int, i1: Int) {}
 
     companion object {
-        const val DATABASE_VERSION = 1
-        const val DATABASE_NAME = "eventDb"
         const val TABLE_EVENTS = "events"
         const val TABLE_FILLS = "fills"
         const val TABLE_CATEGORY = "categories"

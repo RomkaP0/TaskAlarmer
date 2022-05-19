@@ -1,5 +1,8 @@
+@file:Suppress("LocalVariableName")
+
 package com.kradyk.taskalarmer
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
@@ -11,8 +14,9 @@ import androidx.core.app.NotificationManagerCompat
 import java.util.*
 
 class AlarmReceiver : BroadcastReceiver() {
-    var alarmManager: AlarmManager? = null
-    var repeating: String? = null
+    private var alarmManager: AlarmManager? = null
+    private var repeating: String? = null
+    @SuppressLint("UnspecifiedImmutableFlag")
     override fun onReceive(context: Context, intent: Intent) {
         val NOTIFY_ID = intent.getIntExtra("NOTIFICATION_ID", 0)
         val titleText = intent.getStringExtra("TITLE_TEXT")

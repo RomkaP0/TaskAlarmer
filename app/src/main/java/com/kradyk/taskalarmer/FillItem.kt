@@ -1,4 +1,4 @@
-package com.kradyk.taskalarmerimport
+package com.kradyk.taskalarmer
 
 
 class FillItem(

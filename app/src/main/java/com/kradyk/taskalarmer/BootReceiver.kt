@@ -1,5 +1,6 @@
 package com.kradyk.taskalarmer
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -7,12 +8,12 @@ import android.app.PendingIntent
 import android.content.*
 import android.os.Build
 import android.util.Log
-import com.kradyk.taskalarmerimport.DBHelper
 
 class BootReceiver : BroadcastReceiver() {
-    var dbHelper: DBHelper? = null
-    var alarmManager: AlarmManager? = null
-    var pendingIntent: PendingIntent? = null
+    private var dbHelper: DBHelper? = null
+    private var alarmManager: AlarmManager? = null
+    private var pendingIntent: PendingIntent? = null
+    @SuppressLint("UnspecifiedImmutableFlag")
     override fun onReceive(context: Context, intent: Intent) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationManager = context.getSystemService(

@@ -1,44 +1,42 @@
+@file:Suppress("PropertyName")
+
 package com.kradyk.taskalarmer
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
-import android.widget.*
-import android.widget.CalendarView.OnDateChangeListener
+import android.widget.CalendarView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationBarView
 import com.google.firebase.auth.FirebaseAuth
-import com.kradyk.taskalarmerimport.DBHelper
-import com.kradyk.taskalarmerimport.Item
 import java.util.*
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
-    var day = 0
-    var month = 0
-    var yr = 0
-    lateinit var mcalendarView: CalendarView
-    var dlg1: CreateEventActivity? = null
-    var stn: Settings? = null
-    lateinit var current: Calendar
-    var s: String? = null
-    var recyclerView: RecyclerView? = null
-    var adapter: ItemAdapter? = null
-    lateinit var cat: Array<String>
-    lateinit var repeate: Array<String>
-    var motionLayout: MotionLayout? = null
-    val LOG_TAG = "myLogs"
-    var dbHelper: DBHelper? = null
-    lateinit var bottomNavigationView: BottomNavigationView
-    var items = ArrayList<Item>()
+    private var day = 0
+    private var month = 0
+    private var yr = 0
+    private lateinit var mcalendarView: CalendarView
+    private var dlg1: CreateEventActivity? = null
+    private var stn: Settings? = null
+    private lateinit var current: Calendar
+    private var s: String? = null
+    private var recyclerView: RecyclerView? = null
+    private var adapter: ItemAdapter? = null
+    private lateinit var cat: Array<String>
+    private lateinit var repeate: Array<String>
+    private var motionLayout: MotionLayout? = null
+    private val LOG_TAG = "myLogs"
+    private var dbHelper: DBHelper? = null
+    private lateinit var bottomNavigationView: BottomNavigationView
+    private var items = ArrayList<Item>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        LoadPreferences()
-        LangLoadPreferences()
+        loadPreferences()
+        langLoadPreferences()
         setTitle(R.string.page_title)
         setContentView(R.layout.activity_main)
         val auth = FirebaseAuth.getInstance()
@@ -57,13 +55,13 @@ class MainActivity : AppCompatActivity() {
         stn = Settings()
         recyclerView = findViewById(R.id.rv)
         mcalendarView = findViewById(R.id.calendarview)
-        mcalendarView.setOnDateChangeListener(OnDateChangeListener { calendarView, year, month, dayOfMonth ->
+        mcalendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             current.set(year, month, dayOfMonth)
             setInitialData(year, month, dayOfMonth)
-        })
+        }
         bottomNavigationView = findViewById(R.id.nav)
         bottomNavigationView.clearFocus()
-        bottomNavigationView.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener { item ->
+        bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.button1 -> {
                     mcalendarView.date = System.currentTimeMillis()
@@ -97,13 +95,12 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             false
-        })
+        }
     }
 
     private fun setInitialData(year1: Int, month1: Int, day1: Int) {
         items.clear()
-        var full: String
-        full = if (day1 < 10) "0$day1." else "$day1."
+        var full: String = if (day1 < 10) "0$day1." else "$day1."
         full += if (month1 + 1 < 10) "0" + (month1 + 1) + "." else (month1 + 1).toString() + "."
         full += year1
         dbHelper = DBHelper(this, "String", 1)
@@ -145,16 +142,16 @@ class MainActivity : AppCompatActivity() {
             "timeb ASC"
         )
         if (c.moveToFirst()) {
-            val dataIndex = c.getColumnIndex(DBHelper.Companion.KEY_DATA)
-            val idIndex = c.getColumnIndex(DBHelper.Companion.KEY_ID)
-            val titleIndex = c.getColumnIndex(DBHelper.Companion.KEY_TITLE)
-            val descIndex = c.getColumnIndex(DBHelper.Companion.KEY_DESCRIPTIONS)
-            val timebIndex = c.getColumnIndex(DBHelper.Companion.KEY_TIMEB)
-            val timeeIndex = c.getColumnIndex(DBHelper.Companion.KEY_TIMEE)
-            val timenotifIndex = c.getColumnIndex(DBHelper.Companion.KEY_TIMENOTIF)
-            val repeatIndex = c.getColumnIndex(DBHelper.Companion.KEY_REPEATING)
-            val paralIndex = c.getColumnIndex(DBHelper.Companion.KEY_PARAL)
-            val impIndex = c.getColumnIndex(DBHelper.Companion.KEY_IMP)
+            val dataIndex = c.getColumnIndex(DBHelper.KEY_DATA)
+            val idIndex = c.getColumnIndex(DBHelper.KEY_ID)
+            val titleIndex = c.getColumnIndex(DBHelper.KEY_TITLE)
+            val descIndex = c.getColumnIndex(DBHelper.KEY_DESCRIPTIONS)
+            val timebIndex = c.getColumnIndex(DBHelper.KEY_TIMEB)
+            val timeeIndex = c.getColumnIndex(DBHelper.KEY_TIMEE)
+            val timenotifIndex = c.getColumnIndex(DBHelper.KEY_TIMENOTIF)
+            val repeatIndex = c.getColumnIndex(DBHelper.KEY_REPEATING)
+            val paralIndex = c.getColumnIndex(DBHelper.KEY_PARAL)
+            val impIndex = c.getColumnIndex(DBHelper.KEY_IMP)
             do {
                 items.add(
                     Item(
@@ -188,12 +185,12 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    fun buildRV() {
+    private fun buildRV() {
         adapter = ItemAdapter(this, items, cat, repeate)
         recyclerView!!.adapter = adapter
     }
 
-    private fun LoadPreferences() {
+    private fun loadPreferences() {
         val sharedPreferences = getSharedPreferences(
             "theme", MODE_PRIVATE
         )
@@ -217,7 +214,7 @@ class MainActivity : AppCompatActivity() {
         onConfigurationChanged(configuration)
     }
 
-    private fun LangLoadPreferences() {
+    private fun langLoadPreferences() {
         val sharedPreferences = getSharedPreferences(
             "lang", MODE_PRIVATE
         )

@@ -63,6 +63,7 @@
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/drawable/btn_custom.xml" value="0.175" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/drawable/custom_rb_icon.xml" value="0.136" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/drawable/diagonalline.xml" value="0.195" />
+        <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/drawable/dialog_bg.xml" value="0.241" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/drawable/et_custom.xml" value="0.175" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/drawable/grgreenlight.xml" value="0.195" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/drawable/grredlight.xml" value="0.17" />
@@ -89,11 +90,13 @@
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/categorieslayout.xml" value="0.2391304347826087" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/catsearch.xml" value="0.1421875" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/create_event_activity.xml" value="0.25" />
+        <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/dialogedit.xml" value="0.19322916666666667" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/dropdown_text_twoline.xml" value="0.1421875" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/fragment_login.xml" value="0.25" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/fragment_register.xml" value="0.23822463768115942" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/fragment_theme.xml" value="0.17708333333333334" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/itemlayout.xml" value="0.1" />
+        <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/row_add_item.xml" value="0.1359375" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/searchactivity.xml" value="0.152" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/layout/settings_items.xml" value="0.1359375" />
         <entry key="..\:/Users/krady/AndroidStudioProjects/TaskAlarmer/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.25" />

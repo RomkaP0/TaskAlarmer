@@ -16,15 +16,16 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
+@Suppress("DEPRECATION")
 class LoginFragment : Fragment() {
-    lateinit var btnlog: Button
-    lateinit var edemail: EditText
-    lateinit var edpass: EditText
-    lateinit var bar: ProgressBar
-    lateinit var forgot: TextView
-    lateinit var imgGoogle: ImageButton
-    var mAuth: FirebaseAuth? = null
-    var googleSignInClient: GoogleSignInClient? = null
+    private lateinit var btnlog: Button
+    private lateinit var edemail: EditText
+    private lateinit var edpass: EditText
+    private lateinit var bar: ProgressBar
+    private lateinit var forgot: TextView
+    private lateinit var imgGoogle: ImageButton
+    private var mAuth: FirebaseAuth? = null
+    private var googleSignInClient: GoogleSignInClient? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,13 +42,13 @@ class LoginFragment : Fragment() {
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(requireContext(), googleSignInOptions)
-        imgGoogle.setOnClickListener(View.OnClickListener {
+        imgGoogle.setOnClickListener {
             bar.visibility = View.VISIBLE
             mAuth = FirebaseAuth.getInstance()
             val intent = googleSignInClient!!.signInIntent
             startActivityForResult(intent, RC_SIGN_IN)
-        })
-        forgot.setOnClickListener(View.OnClickListener {
+        }
+        forgot.setOnClickListener {
             mAuth = FirebaseAuth.getInstance()
             val email = edemail.text.toString()
             if (!email.contains("@") || !email.contains(".")) Toast.makeText(
@@ -62,8 +63,8 @@ class LoginFragment : Fragment() {
                         }
                     }
             }
-        })
-        btnlog.setOnClickListener(View.OnClickListener {
+        }
+        btnlog.setOnClickListener {
             val email = edemail.text.toString()
             if (!email.contains(".") || edpass.text.toString() == "" || !email.contains("@")) {
                 if (!email.contains("@") || !email.contains(".")) Toast.makeText(
@@ -99,10 +100,11 @@ class LoginFragment : Fragment() {
                         bar.visibility = View.GONE
                     }
             }
-        })
+        }
         return viewout
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
@@ -124,8 +126,8 @@ class LoginFragment : Fragment() {
         mAuth!!.signInWithCredential(credential)
             .addOnSuccessListener { authResult ->
                 val firebaseUser = mAuth!!.currentUser
-                val uid = firebaseUser!!.uid
-                val email = firebaseUser.email
+                firebaseUser!!.uid
+                firebaseUser.email
                 if (authResult.additionalUserInfo!!.isNewUser) {
                     Toast.makeText(context, "Account created", Toast.LENGTH_SHORT).show()
                 } else {

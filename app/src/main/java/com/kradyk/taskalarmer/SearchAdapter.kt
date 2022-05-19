@@ -1,5 +1,6 @@
 package com.kradyk.taskalarmer
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +11,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.kradyk.taskalarmerimport.DBHelper
-import com.kradyk.taskalarmerimport.SearchItem
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -21,7 +20,6 @@ class SearchAdapter internal constructor(context: Context?, list: MutableList<Se
     private val inflater: LayoutInflater
     private val list: List<SearchItem>
     private var listFull: List<SearchItem> = list
-    lateinit var dbHelper: DBHelper
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -40,7 +38,7 @@ class SearchAdapter internal constructor(context: Context?, list: MutableList<Se
 
 ${it.desc}"""
                         )
-                        .setPositiveButton("Удалить") { dialogInterface, i -> }
+                        .setPositiveButton("Удалить") { _, _ -> }
                 builderdlg.show()
             }
         })
@@ -58,10 +56,10 @@ ${it.desc}"""
 
     class ViewHolder(view: View, listener: SearchClickListener) : RecyclerView.ViewHolder(view),
         View.OnClickListener {
-        var listener: SearchClickListener
+        private var listener: SearchClickListener
         val titleView: TextView
         val dateView: TextView
-        var cardView: MaterialCardView
+        private var cardView: MaterialCardView
         override fun onClick(view: View) {
             if (view.id == R.id.cardlst) listener.onCardClick(this.adapterPosition)
         }
@@ -82,7 +80,7 @@ ${it.desc}"""
     private val searchFilter: Filter = object : Filter() {
         override fun performFiltering(constraint: CharSequence): FilterResults {
             val filteredList: MutableList<SearchItem> = ArrayList()
-            if (constraint == null || constraint.length == 0) {
+            if (constraint.isEmpty()) {
                 filteredList.addAll(listFull)
             } else {
                 val filterPattern =
@@ -98,6 +96,7 @@ ${it.desc}"""
             return results
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         override fun publishResults(charSequence: CharSequence, results: FilterResults) {
             list.clear()
             list.addAll(results.values as List<SearchItem>)

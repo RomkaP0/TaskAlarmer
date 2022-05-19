@@ -1,5 +1,6 @@
 package com.kradyk.taskalarmer
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
@@ -8,7 +9,8 @@ import android.content.Intent
 import android.widget.Toast
 
 class DeleteReceiver : BroadcastReceiver() {
-    var alarmManager: AlarmManager? = null
+    private var alarmManager: AlarmManager? = null
+    @SuppressLint("UnspecifiedImmutableFlag")
     override fun onReceive(context: Context, intent: Intent) {
         val i = Intent(context, AlarmReceiver::class.java)
         val pendingIntent =
