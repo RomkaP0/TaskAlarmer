@@ -15,34 +15,36 @@ import android.util.Log
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dev.shreyaspatil.MaterialDialog.BottomSheetMaterialDialog
 
 
-class SearchActivity : AppCompatActivity() {
+class SearchActivity : Fragment() {
     private lateinit var recyclerView1: RecyclerView
     lateinit var searchAdapter: SearchAdapter
     private var list: ArrayList<SearchItem> = ArrayList()
-    private var titlepg:String = ""
     private lateinit var dbHelper: DBHelper
     private lateinit var autoCompleteTextView: AutoCompleteTextView
     private var selection: String? = null
     private lateinit var selectionArgs: Array<String>
     private var cat: ArrayList<String> = ArrayList()
     private lateinit var database: SQLiteDatabase
-    var id = -1
+    var idd = -1
+    lateinit var searchView: androidx.appcompat.widget.SearchView
+
     @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setTitle(R.string.search_page)
-        setContentView(R.layout.searchactivity)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        val viewout = inflater.inflate(R.layout.searchactivity, container, false)
+
+        recyclerView1 = viewout.findViewById(R.id.rv1)
+        setHasOptionsMenu(true)
 
 
-
-        val floatingActionButton1 = findViewById<FloatingActionButton>(R.id.srchedit)
-        val floatingActionButton2 = findViewById<FloatingActionButton>(R.id.srchdelete)
+        val floatingActionButton1 = viewout.findViewById<FloatingActionButton>(R.id.srchedit)
+        val floatingActionButton2 = viewout.findViewById<FloatingActionButton>(R.id.srchdelete)
         val currentNightMode = (resources.configuration.uiMode
                 and Configuration.UI_MODE_NIGHT_MASK)
         when (currentNightMode) {
@@ -66,8 +68,8 @@ class SearchActivity : AppCompatActivity() {
             }
         }
         floatingActionButton2.imageTintList = ColorStateList.valueOf(Color.rgb(228, 68, 68))
-        autoCompleteTextView = findViewById(R.id.categorysrch)
-        dbHelper = DBHelper(this, "String", 1)
+        autoCompleteTextView = viewout.findViewById(R.id.categorysrch)
+        dbHelper = DBHelper(context, "String", 1)
         val db = dbHelper.writableDatabase
         val c = db.query("categories", null, null, null, null, null, null)
         if (c.moveToFirst()) {
@@ -78,11 +80,8 @@ class SearchActivity : AppCompatActivity() {
             } while (c.moveToNext())
         } else Log.d("mainLog", "0 rows")
         c.close()
-        autoCompleteTextView.setAdapter(
-            ArrayAdapter(
-                this,
-                android.R.layout.simple_list_item_1,
-                cat
+        autoCompleteTextView.setAdapter(ArrayAdapter(
+            requireContext(), android.R.layout.simple_list_item_1, cat
             )
         )
         autoCompleteTextView.setText("Without", false)
@@ -110,7 +109,7 @@ class SearchActivity : AppCompatActivity() {
             val positivebtn = dialog.findViewById<Button>(R.id.positbtn)
                     positivebtn.setOnClickListener {
                         val contentValues = ContentValues()
-                        dbHelper = DBHelper(applicationContext, "String", 1)
+                        dbHelper = DBHelper(context, "String", 1)
                         database = dbHelper.writableDatabase
                         contentValues.clear()
                         contentValues.put(
@@ -127,10 +126,13 @@ class SearchActivity : AppCompatActivity() {
                         autoCompleteTextView.setText(edittext.text.toString(), false)
                         listSearchView()
                         buildRV1()
+                        dialog.hide()
                     }
-
+            val negativebtn = dialog.findViewById<Button>(R.id.negbtn)
+            negativebtn.setOnClickListener{
+                dialog.dismiss()
+            }
             dialog.show()
-            //Resources.getSystem().getDisplayMetrics().widthPixels
             dialog.window!!.setLayout((Resources.getSystem().displayMetrics.widthPixels-20),  ViewGroup.LayoutParams.WRAP_CONTENT  )
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
@@ -144,15 +146,15 @@ class SearchActivity : AppCompatActivity() {
                 .setAnimation(R.raw.delete_anim)
                 .setPositiveButton("OK") { dialogInterface, _ ->
                     val contentValues = ContentValues()
-                    dbHelper = DBHelper(applicationContext, "String", 1)
+                    dbHelper = DBHelper(context, "String", 1)
                     database = dbHelper.writableDatabase
                     val cursor = database.rawQuery(
                         "SELECT * FROM " + DBHelper.TABLE_CATEGORY + " WHERE cat = ?",
                         arrayOf(autoCompleteTextView.text.toString())
                     )
                     if (cursor.moveToFirst()) {
-                        id = cursor.getColumnIndex("_id")
-                        id = cursor.getInt(id)
+                        idd = cursor.getColumnIndex("_id")
+                        idd = cursor.getInt(idd)
                     }
                     cursor.close()
                     database.delete(
@@ -162,7 +164,7 @@ class SearchActivity : AppCompatActivity() {
                     )
                     contentValues.clear()
                     contentValues.put(DBHelper.KEY_POSID, 1)
-                    val selectionArgs = arrayOf(id.toString())
+                    val selectionArgs = arrayOf(idd.toString())
                     database.update(
                         DBHelper.TABLE_EVENTS,
                         contentValues,
@@ -182,40 +184,55 @@ class SearchActivity : AppCompatActivity() {
                 .build()
             dialog.show()
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.toolbar_menu, menu)
-        val searchItem = menu.findItem(R.id.appBarSearch)
-        val searchView = searchItem.actionView as SearchView
+        searchView = viewout.findViewById(R.id.searchview)
+        searchView.maxWidth = Integer.MAX_VALUE
         searchView.imeOptions = EditorInfo.IME_ACTION_DONE
-
-
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
+                Log.d("SEARCH", newText)
                 searchAdapter.filter.filter(newText)
                 return false
             }
         })
-        searchView.setOnCloseListener {
-            title = titlepg
-            false
-        }
+
         searchView.setOnSearchClickListener {
-            titlepg = title.toString()
-            title = ""
+
             listSearchView() }
-        return true
+
+        return viewout
     }
+
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        inflater.inflate(R.menu.toolbar_menu, menu)
+//        val searchItem = menu.findItem(R.id.appBarSearch)
+//        val searchView = searchItem.actionView as SearchView
+//        searchView.imeOptions = EditorInfo.IME_ACTION_DONE
+//
+//
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String): Boolean {
+//                return false
+//            }
+//
+//            override fun onQueryTextChange(newText: String): Boolean {
+//                Log.d("SEARCH", newText)
+//                searchAdapter.filter.filter(newText)
+//                return false
+//            }
+//        })
+//
+//        searchView.setOnSearchClickListener {
+//
+//            listSearchView() }
+//    }
 
     private fun listSearchView() {
         list.clear()
-        dbHelper = DBHelper(this, "String", 1)
+        dbHelper = DBHelper(context, "String", 1)
         val db = dbHelper.writableDatabase
         val table = "events as EV inner join categories as CT on EV.posid = CT._id"
         if (autoCompleteTextView.text.toString() != "Without") {
@@ -254,8 +271,8 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun buildRV1() {
-        recyclerView1 = findViewById(R.id.rv1)
-        searchAdapter = SearchAdapter(this, list)
+        searchAdapter = SearchAdapter(context, list)
         recyclerView1.adapter = searchAdapter
     }
+
 }

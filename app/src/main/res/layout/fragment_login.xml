@@ -8,7 +8,6 @@
 
 
     <TextView
-        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
@@ -113,13 +112,7 @@ android:layout_marginHorizontal="20dp">
         android:textAlignment="center"
         android:textSize="17sp" />
 
-    <ProgressBar
-        android:id="@+id/barlogin"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:visibility="gone" />
+
 
     <ImageView
         android:layout_width="30dp"

@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.forms.sti.progresslitieigb.Inteface.IProgressLoadingIGB
+import com.forms.sti.progresslitieigb.Model.JSetting
+import com.forms.sti.progresslitieigb.ProgressLoadingJIGB
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -16,12 +19,12 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
+
 @Suppress("DEPRECATION")
 class LoginFragment : Fragment() {
     private lateinit var btnlog: Button
     private lateinit var edemail: EditText
     private lateinit var edpass: EditText
-    private lateinit var bar: ProgressBar
     private lateinit var forgot: TextView
     private lateinit var imgGoogle: ImageButton
     private var mAuth: FirebaseAuth? = null
@@ -30,11 +33,17 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        ProgressLoadingJIGB.setupLoading = IProgressLoadingIGB { setup: JSetting ->
+            setup.srcLottieJson = R.raw.loading_a // Your Source JSON Lottie
+            setup.timer = 0 // Time of live for progress.
+            setup.width = 1000 // Optional
+            setup.hight = 1000 // Optional
+
+        }
         val viewout = inflater.inflate(R.layout.fragment_login, container, false)
         btnlog = viewout.findViewById(R.id.btn_login)
         edemail = viewout.findViewById(R.id.et_email)
         edpass = viewout.findViewById(R.id.et_password)
-        bar = viewout.findViewById(R.id.barlogin)
         forgot = viewout.findViewById(R.id.forgot)
         imgGoogle = viewout.findViewById(R.id.googleauth)
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -43,7 +52,7 @@ class LoginFragment : Fragment() {
             .build()
         googleSignInClient = GoogleSignIn.getClient(requireContext(), googleSignInOptions)
         imgGoogle.setOnClickListener {
-            bar.visibility = View.VISIBLE
+            ProgressLoadingJIGB.startLoading(it.context)
             mAuth = FirebaseAuth.getInstance()
             val intent = googleSignInClient!!.signInIntent
             startActivityForResult(intent, RC_SIGN_IN)
@@ -75,7 +84,7 @@ class LoginFragment : Fragment() {
                     context, R.string.inppass, Toast.LENGTH_SHORT
                 ).show()
             } else {
-                bar.visibility = View.VISIBLE
+                ProgressLoadingJIGB.startLoading(it.context)
                 val mAuth = FirebaseAuth.getInstance()
                 mAuth.signInWithEmailAndPassword(email, edpass.text.toString())
                     .addOnCompleteListener { task ->
@@ -97,7 +106,7 @@ class LoginFragment : Fragment() {
                             Log.d("TAG", "loginUserWithEmail:fail")
                             Toast.makeText(context, "Wrong", Toast.LENGTH_SHORT).show()
                         }
-                        bar.visibility = View.GONE
+                        ProgressLoadingJIGB.finishLoadingJIGB(it.context)
                     }
             }
         }
@@ -115,6 +124,7 @@ class LoginFragment : Fragment() {
                 )
                 firebaseWithGoogleAccount(account)
             } catch (c: Exception) {
+                ProgressLoadingJIGB.finishLoadingJIGB(context)
                 c.printStackTrace()
             }
         }
@@ -133,10 +143,10 @@ class LoginFragment : Fragment() {
                 } else {
                     Toast.makeText(context, "Exist", Toast.LENGTH_SHORT).show()
                 }
-                bar.visibility = View.GONE
+    ProgressLoadingJIGB.finishLoadingJIGB(context)
                 requireActivity().finish()
             }
-            .addOnFailureListener { bar.visibility = View.GONE }
+            .addOnFailureListener { ProgressLoadingJIGB.finishLoadingJIGB(context) }
     }
 
     companion object {

@@ -27,18 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SearchActivity"
-            android:exported="true"
-            android:label="@string/search_page"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Search">
-            <intent-filter>
-                <action android:name="com.example.SearchActivity" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".CreateEventActivity"
             android:exported="true"
@@ -59,19 +48,6 @@
             android:theme="@style/Theme.MyProject">
             <intent-filter>
                 <action android:name="com.example.AuthActivity" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".Settings"
-            android:configChanges="locale|orientation"
-            android:exported="true"
-            android:label="Setting"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.WithToolBar">
-            <intent-filter>
-                <action android:name="com.example.Settings" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

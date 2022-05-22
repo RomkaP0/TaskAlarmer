@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--colors for dark mode-->
+    <color name="contentBodyColor">#000</color>
+    <color name="contentTextColor">#fff</color>
+    <color name="miniTitle">#fff</color>
+    <color name="main">#FF03DAC5</color>
+
+    <color name="icon">#FFFFFF</color>
+
+</resources>

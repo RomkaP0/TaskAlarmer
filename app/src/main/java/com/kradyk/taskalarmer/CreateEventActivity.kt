@@ -28,6 +28,10 @@ class CreateEventActivity : AppCompatActivity() {
     private lateinit var autoCompleteTextView1: AutoCompleteTextView
     private lateinit var autoCompleteTextView2: AutoCompleteTextView
     private lateinit var autoCompleteTextView3: AutoCompleteTextView
+    private lateinit var datetext:TextView
+    lateinit var iconback:ImageButton
+    lateinit var iconsubmit:ImageButton
+
     private var hour: Int = 0
     private var minute: Int = 0
     private var cat: ArrayList<String> = ArrayList()
@@ -66,10 +70,13 @@ class CreateEventActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.create_event_activity)
         autoCompleteTextView = findViewById(R.id.autoCompleteTextView1)
-        val materialToolbar: MaterialToolbar = findViewById(R.id.topAppBarD1)
-        if ((autoCompleteTextView.hint.toString() == "Название")) materialToolbar.title =
+        datetext = findViewById(R.id.dateev)
+        iconback = findViewById(R.id.iconnav)
+        iconsubmit = findViewById(R.id.okev)
+
+        if ((autoCompleteTextView.hint.toString() == "Название")) datetext.text =
             "Дата : " + intent.extras!!
-                .getString("date", "-1") else materialToolbar.title = "Date : " + intent.extras!!
+                .getString("date", "-1") else datetext.text = "Date : " + intent.extras!!
             .getString("date", "-1")
         data = intent.extras!!.getString("date", "-1")
         setListFills()
@@ -281,11 +288,10 @@ class CreateEventActivity : AppCompatActivity() {
                     Calendar.MONTH
                 ) + 1).toString() + "."
                 data += cal.get(Calendar.YEAR)
-                materialToolbar.title = "Дата : $data"
+                datetext.text = "Дата : $data"
             }
         }
-        materialToolbar.setOnMenuItemClickListener { item ->
-            if (item.itemId == R.id.check) {
+        iconsubmit.setOnClickListener {
                 if ((autoCompleteTextView.text.toString() != "") && (button1.text
                         .toString() != "Начало") && (button2.text
                         .toString() != "Окончание") && (button1.text
@@ -841,10 +847,12 @@ class CreateEventActivity : AppCompatActivity() {
                     ).show()
                 }
             }
-            false
+        iconback.setOnClickListener{
+            finish()
         }
-        materialToolbar.setNavigationOnClickListener { finish() }
-    }
+
+        }
+
 
     @SuppressLint("UnspecifiedImmutableFlag", "Recycle")
     private fun setAlarm() {

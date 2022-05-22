@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.forms.sti.progresslitieigb.Inteface.IProgressLoadingIGB
+import com.forms.sti.progresslitieigb.Model.JSetting
+import com.forms.sti.progresslitieigb.ProgressLoadingJIGB
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -23,7 +26,6 @@ class RegisterFragment : Fragment() {
     private lateinit var edemail: EditText
     private lateinit var edpass: EditText
     private lateinit var edrepass: EditText
-    private lateinit var bar: ProgressBar
     private lateinit var imgGoogle: ImageButton
     private lateinit var mAuth: FirebaseAuth
     private var googleSignInClient: GoogleSignInClient? = null
@@ -31,13 +33,19 @@ class RegisterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        ProgressLoadingJIGB.setupLoading = IProgressLoadingIGB { setup: JSetting ->
+            setup.srcLottieJson = R.raw.loading_a // Your Source JSON Lottie
+            setup.timer = 0 // Time of live for progress.
+            setup.width = 1000 // Optional
+            setup.hight = 1000 // Optional
+
+        }
         val viewout = inflater.inflate(R.layout.fragment_register, container, false)
         btnreg = viewout.findViewById(R.id.btn_register)
         edname = viewout.findViewById(R.id.et_name)
         edemail = viewout.findViewById(R.id.et_email)
         edpass = viewout.findViewById(R.id.et_password)
         edrepass = viewout.findViewById(R.id.et_repassword)
-        bar = viewout.findViewById(R.id.barreg)
         imgGoogle = viewout.findViewById(R.id.googleauth)
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("665824354496-19ucjcv4e6dvctn1gade7rvdv9du5j98.apps.googleusercontent.com")
@@ -46,7 +54,7 @@ class RegisterFragment : Fragment() {
         googleSignInClient = GoogleSignIn.getClient((context)!!, googleSignInOptions)
         googleSignInClient!!.signOut()
         imgGoogle.setOnClickListener {
-            bar.visibility = View.VISIBLE
+            ProgressLoadingJIGB.startLoading(it.context)
             mAuth = FirebaseAuth.getInstance()
             val intent = googleSignInClient!!.signInIntent
             startActivityForResult(intent, RC_SIGN_IN)
@@ -75,11 +83,11 @@ class RegisterFragment : Fragment() {
                     context, R.string.notequalpass, Toast.LENGTH_SHORT
                 ).show()
             } else {
-                bar.visibility = View.VISIBLE
+                ProgressLoadingJIGB.startLoading(it.context)
                 val mAuth = FirebaseAuth.getInstance()
                 mAuth.createUserWithEmailAndPassword(email, edpass.text.toString())
                     .addOnCompleteListener { task ->
-                        bar.visibility = View.GONE
+                        ProgressLoadingJIGB.finishLoadingJIGB(it.context)
                         if (task.isSuccessful) {
                             mAuth.currentUser!!.sendEmailVerification()
                                 .addOnCompleteListener { task ->
@@ -117,6 +125,7 @@ class RegisterFragment : Fragment() {
                 )
                 firebaseWithGoogleAccount(account)
             } catch (c: Exception) {
+                ProgressLoadingJIGB.finishLoadingJIGB(context)
                 c.printStackTrace()
             }
         }
@@ -135,10 +144,11 @@ class RegisterFragment : Fragment() {
                 } else {
                     Toast.makeText(context, "Exist", Toast.LENGTH_SHORT).show()
                 }
-                bar.visibility = View.GONE
+                ProgressLoadingJIGB.finishLoadingJIGB(context)
                 requireActivity().finish()
             }
-            .addOnFailureListener { bar.visibility = View.GONE }
+            .addOnFailureListener {                         ProgressLoadingJIGB.finishLoadingJIGB(context)
+            }
     }
 
     companion object {

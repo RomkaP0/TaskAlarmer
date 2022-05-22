@@ -10,7 +10,7 @@
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:lottie_rawRes="@raw/edit_anim"
+        app:lottie_rawRes="@raw/hello"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"/>
     <TextView
@@ -30,30 +30,25 @@
         android:gravity="center"
         android:layout_marginTop="16dp"
         android:text="Введите название категории"/>
-    <com.google.android.material.textfield.TextInputLayout
+    <RadioGroup
+        android:id="@+id/radiogr"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:hintEnabled="false">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edinput"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/enrb"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:autofillHints="password"
-            android:background="@drawable/edittextstyle"
-            android:drawablePadding="8dp"
-            android:elevation="0dp"
-            android:padding="18dp"
+            android:text="English"
             android:textColor="@color/black"
-            android:singleLine="true"
-             />
+            android:layout_height="wrap_content"/>
+        <RadioButton
+            android:id="@+id/rurb"
+            android:layout_width="match_parent"
+            android:text="Русский"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"/>
 
+    </RadioGroup>
 
-    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
